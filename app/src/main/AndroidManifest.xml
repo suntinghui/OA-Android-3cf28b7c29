@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lkpower.oaandroid"
+    android:versionCode="75"
+    android:versionName="1.75.20171030" >
+
+<!--  android:sharedUserId="android.uid.system" -->
+
+  
+    <!-- 4.0 API14 -->
+    <!-- 4.2 API17 -->
+
+    <!--二维码需要的权限开始-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--二维码需要的权限结束-->
+
+    <!-- 极光权限 -->
+    <permission
+        android:name="com.lkpower.oaandroid.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <!-- 极光权限 Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="com.lkpower.oaandroid.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- 极光权限 Optional for location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.GET_TASKS" />
+	
+    <!-- 记住这个一要放在application外面，不然会出现配置错误信息 -->
+    <!--<instrumentation-->
+        <!--android:name="android.test.InstrumentationTestRunner"-->
+        <!--android:label="Tests for My App"-->
+        <!--android:targetPackage="com.lkpower.oaandroid"></instrumentation>-->
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 在sdcard中创建/删除文件的权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
+    </uses-permission>
+    <!-- 往sdcard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+<!-- 	<uses-permission android:name="android.permission.DEVICE_POWER" /> -->
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <application
+        android:name=".OaApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/AppThemeNoActionBar" >
+
+        <!-- Polling Service 
+        <service android:name=".service.PollService" >
+            <intent-filter>
+                <action android:name="com.lkpower.oaandroid.service.PollService" />
+            </intent-filter>
+        </service>
+        -->
+
+		<!-- 
+        <activity
+            android:name=".service.MessageActivity"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name" >
+        </activity>
+         -->
+
+        <!-- 在本应用中导入需要使用的包，放在application里面activity外面 -->
+        <uses-library android:name="android.test.runner" />
+
+        <!-- 极光权限 Required SDK核心功能 -->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.lkpower.oaandroid" />
+            </intent-filter>
+        </activity>
+        
+        <!-- 极光权限 Required  SDK核心功能 -->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+
+        <!-- Required SDK 核心功能 -->
+        <!-- 极光权限 可配置android:process参数将PushService放在其他进程中 -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 极光权限 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <!--<service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+
+                <category android:name="com.lkpower.oaandroid" />
+            </intent-filter>
+        </service>-->
+
+        <!-- 极光权限 Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+             >
+            <intent-filter android:priority="1000" >
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
+                <category android:name="com.lkpower.oaandroid" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 极光权限 Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
+
+        <!-- 极光权限 User defined.  For test only  用户自定义的广播接收器 -->
+        <receiver
+            android:name=".broadcastreceiver.JPushReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.lkpower.oaandroid" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 极光权限 Required  . Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <!-- c3a06aec5a341a1635898c1e -->
+        <!-- c0e07e7cad10fe500cc2b54a -->
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="c0e07e7cad10fe500cc2b54a" /> <!-- </>值来自开发者平台取得的AppKey -->
+            
+            <!--
+        android:theme="@android:style/Theme.Holo.NoActionBar"
+        android:screenOrientation="landscape" 横屏
+        android:screenOrientation="portrait"  竖屏
+        -->
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name"
+            
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.NoActionBar" >
+            
+        </activity>
+        
+        <activity
+            android:name=".SplashActivity"
+            android:label="@string/app_name" 
+            
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--扫描的页面-->
+        <activity android:name=".ScanActivity"
+            android:screenOrientation="portrait"/>
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.lkpower.oaandroid.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

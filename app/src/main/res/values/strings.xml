@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 移动办公 -->
+    <!-- 省肿医移动办公 -->
+    <!-- 市第一医院办公    长沙市第一医院办公系统 -->
+    <!-- 郑大一附院移动办公 -->
+    <string name="app_name">移动办公</string>
+    
+    <!-- 河科大 http://61.136.78.43:9004 -->
+    <!-- http://192.168.1.246:2800 -->
+    <!-- http://oa.hnszlyy.com:888 -->
+    <!-- http://192.168.1.95:8087/html5/index5.html -->
+    <!-- http://192.168.1.113:8087/html5/index5.html -->
+    <!-- http://192.168.1.246:2800 -->
+    <!-- http://192.168.1.107:2800 -->
+    <!-- 江苏泰兴市人民医院 http://58.222.194.146:2800 -->
+    <!-- 郑大一附院移动办公 http://123.15.54.106:8889 -->
+    <!-- 景德镇第二人民医院 http://117.40.195.61:2800 -->
+    <!-- http://192.168.2.11:8087/html5/ -->
+    <!-- http://61.136.78.43:9004 -->
+    <!-- http://oa.lkpower.com:2800 kl aaaaaa -->
+    <!-- 山西医科大学第一医院  http://218.26.109.99:2800  -->
+    <!-- 邓州中心医院  http://218.28.77.140:2800  -->
+    <!-- 湖南中医院 http://113.247.226.163:2800-->
+    <!-- 河南科技大学第一附属医院 http://61.136.78.43:9004-->
+    <string name="default_url"></string>
+
+
+
+    <!--
+      小于等于0则不开启
+      大于0开启
+      单位秒
+    -->
+    <string name="push_time">300</string>
+    <string name="menu_start">菜单</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">LKSettings</string>
+    <string name="btn_info">info</string>
+    <string name="btn_login">login</string>
+    <string name="btn_logout">logout</string>
+    <string name="btn_reload">reload</string>
+    <string name="textview">show tip</string>
+    <string name="btn_call">call</string>
+    <string name="btn_set">SetURL</string>
+    <string name="edit_service_url">Please Enter Service URL</string>
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="login_tip_username">请输入用户名</string>
+    <string name="login_tip_password">请输入密码</string>
+    <string name="login_label_server_url">请输入服务器地址</string>
+    <string name="login_label_remember_password">记住密码</string>
+    <string name="login_label_auto_login">自动登录</string>
+    <string name="image_content"></string>
+    <string name="popup_menu_server_tip">请输入服务地址</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="popup_menu_userinfo_tip">请输入用户信息</string>
+    <string name="tv_username">账号</string>
+    <string name="tv_password">密码</string>
+    <string name="tv_username_hint">请输入用户名</string>
+    <string name="tv_password_hint">请输入密码</string>
+    <string name="btn_menu">菜单</string>
+    <string name="empty"></string>
+    <string name="empty_0">0%</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_title">设置</string>
+
+</resources>

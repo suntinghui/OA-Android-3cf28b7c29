@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>联达动力系统控制软件V2.0</title>
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/cmn.css" rel="stylesheet">
+    
+
+    <style>
+    #img { 
+		z-index:-1; 
+		position:absolute;
+		width:100%; 
+		height:100%;
+		padding:0;margin:0; 
+		} 
+
+	.login{
+		padding-top:80px;
+		}
+	.mistakes p{
+		color:#fff;
+		padding-top:50px;
+		}
+    .fixed-bottom{
+		position:absolute;
+		width:94%;
+		bottom:100px;
+		}
+	.fixed-bottom .exit-btn{
+		border:1px solid #fde5e8;
+		border-radius:30px;
+		padding:5px 25px 10px 25px;
+		}
+	.fixed-bottom .referce-btn{
+		border:1px solid #d5ebff;
+		border-radius:30px;
+		padding:5px 25px 10px 25px;
+		}
+	.exit{
+		padding-left:8px;
+		color:#d13d3d;
+		font-size:18px;
+		position:relative;
+		top:3px;
+		}
+	.referce{
+		color:#3c8cd1;
+		}
+    </style>
+</head>
+
+<body scroll=no>
+	<img alt="" src="../pic/cache.jpg" id="img">
+    <div class="container-fluid login">
+      <div class="text-center mistakes">
+        <span><img src="../pic/mistake.png" class="img-responsive responsively"></span>
+        <p class="text-center">:【很抱歉，您访问的界面有错误！</p>
+      </div>
+      <div class="fixed-bottom text-center">
+        <div class="row">
+          <div class="container">
+            <div class="col-xs-6 text-center">
+            	<button id="exit" class="btn btns lk-boxtype exit-btn"><span><img src="../pic/exit.png" class="img-responsive responsively" width="16"></span><span class="exit">退出</span></button>
+            </div>
+            <div class="col-xs-6 text-center">
+            	<button id="refresh" class="btn btns lk-boxtype referce-btn"><span><img src="../pic/referce.png" class="img-responsive responsively" width="16"></span><span class="exit referce">刷新</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript" charset="utf-8" src="../script/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+var u = navigator.userAgent, app = navigator.appVersion;
+console.log(u);
+console.log(app);
+
+// 区分 Android | IOS 版本　
+var browser = {
+		versions:function() {
+			return {
+				//ios终端 
+				ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), 
+                //android终端或uc浏览器 
+                android: u.indexOf('Android') > -1 && u.indexOf('Linux') > -1
+			};
+		}()
+};
+
+function loadindex() {
+	console.log("loadindex");
+	// Javascript Call Android 
+	if (browser.versions.android) {
+		window.callnative.jsCallNativeWithLoadIndex();
+	}
+	// Javascript Call IOS 
+	else if(browser.versions.ios) {
+		var url = "js-call-ios:jsCallNativeWithLoadIndex";
+		// $("#div-show").append("<br/>" + url);
+		location = url;
+	}
+}
+
+function exitApp() {
+	console.log("exitapp");
+	// Javascript Call Android 
+	if (browser.versions.android) {
+		window.callnative.jsCallNativeWithExitApp();
+	}
+	// Javascript Call IOS 
+	else if(browser.versions.ios) {
+		var url = "js-call-ios:jsCallNativeWithExitApp";
+		// $("#div-show").append("<br/>" + url);
+		location = url;
+	}
+}
+
+/*
+setTimeout(function(){
+	// alert(true);
+	loadindex();
+}, 3000);
+*/
+
+/*
+setInterval(function() {
+	console.log("loading ... ");
+	loadindex();
+}, 5000);
+*/
+
+$(document).ready(function() {
+	
+	console.log("javascript in");
+	
+	$("#refresh").bind("click", function() {
+		console.log("refresh");
+		loadindex();
+	});
+	
+	$("#exit").bind("click", function() {
+		console.log("exit");
+		exitApp();
+	});
+	
+});
+
+</script>
+</body>
+</html>

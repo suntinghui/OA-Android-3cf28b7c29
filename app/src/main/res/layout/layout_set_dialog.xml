@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/date_time"
+    android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:ignore="MergeRootFrame" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/dialog_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/settings_triangle"
+            android:text="@string/empty" /> 
+
+        <TextView
+            android:id="@+id/dialog_title"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:rotation="-45"
+            android:textColor="@color/white"
+            android:text="@string/dialog_title" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/empty"
+            android:paddingBottom="@dimen/dialog_menu_image_padding"
+            android:paddingTop="@dimen/dialog_menu_image_padding"
+            android:src="@drawable/settings" />
+
+    </FrameLayout>
+
+    <GridView
+        android:id="@+id/dialog_gridView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnWidth="200dp"
+        android:verticalSpacing="2dp"
+        android:listSelector="@drawable/grid_selector"
+        android:numColumns="auto_fit" >
+    </GridView>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/dialog_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_cancel_btn_height"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_set_dialog"
+            android:text="@string/dialog_cancel" />
+
+    </LinearLayout>
+
+</LinearLayout>

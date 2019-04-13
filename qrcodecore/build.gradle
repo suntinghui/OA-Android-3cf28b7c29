@@ -1,0 +1,20 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 28
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+// ./gradlew :qrcodecore:clean :qrcodecore:build :qrcodecore:bintrayUpload -PpublishAar
+if (hasProperty("publishAar")) {
+    apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/jcenter-release.gradle'
+}

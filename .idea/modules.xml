@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/OA-Android-3cf28b7c29.iml" filepath="$PROJECT_DIR$/OA-Android-3cf28b7c29.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/filedownloader/filedownloader.iml" filepath="$PROJECT_DIR$/filedownloader/filedownloader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qrcodecore/qrcodecore.iml" filepath="$PROJECT_DIR$/qrcodecore/qrcodecore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zxing/zxing.iml" filepath="$PROJECT_DIR$/zxing/zxing.iml" />
+    </modules>
+  </component>
+</project>
