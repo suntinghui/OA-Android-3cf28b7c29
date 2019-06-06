@@ -516,12 +516,13 @@ implements SensorEventListener /*implements TextWatcher*/
     // 设置服务器URL
     void setServerUrl() {
         final EditText et = new EditText(MainActivity.this);
+        et.setHint(R.string.login_label_server_url);
         String url = SharedPreferencesUtils.getString(Constants.SERVICE_URL);
         if (null != url && url.length() > 0) {
             et.setText(url);
             et.setSelection(url.length());
         } else {
-            et.setHint(R.string.login_label_server_url);
+            et.setText("http://222.134.7.71:2800");
         }
 
         showAlertDialog(this, getString(R.string.popup_menu_server_tip), et, getString(R.string.save), "取消", "扫码绑定", new ICallBackInterface() {
