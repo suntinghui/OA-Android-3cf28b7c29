@@ -52,6 +52,7 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport:latest.release'
     implementation 'com.yanzhenjie.permission:support:2.0.1'
 
+    implementation 'com.google.code.gson:gson:2.2.2'
 
 
 

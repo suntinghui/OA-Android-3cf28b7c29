@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -21,8 +23,16 @@ import com.lkpower.util.SharedPreferencesUtils;
 import com.lkpower.util.Util;
 
 import java.io.File;
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.org.bjca.cossmobile.CoSSMobileSDK;
+import cn.org.bjca.cossmobile.callback.ResultCallBack;
+import cn.org.bjca.cossmobile.result.ApplyCertResult;
+import cn.org.bjca.cossmobile.result.BaseResult;
+import cn.org.bjca.cossmobile.result.LoginAuthResult;
+import cn.org.bjca.cossmobile.result.SignDataResult;
+import cn.org.bjca.cossmobile.result.UserInfoResult;
 
 import static com.lkpower.oaandroid.LoginActivity.tag;
 import static com.lkpower.oaandroid.MainActivity.CAMERA_REQUEST_CODE;
@@ -38,9 +48,14 @@ public class JavaScriptInterface {
     private final MainActivity activity;
     private final WebView web;
 
+    private CoSSMobileSDK instance;
+    private String selectPhoneNo;
+
     public JavaScriptInterface(MainActivity activity, WebView webView) {
         this.activity = activity;
         this.web = webView;
+
+        instance = CoSSMobileSDK.getInstance(this.activity);
     }
 
     // 计算SHA1摘要
@@ -460,4 +475,161 @@ public class JavaScriptInterface {
 
         return "Value Returned From Java";
     }
+
+
+    /**
+     * 查询用户证书列表
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCAGetUserList() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                List<String> userList = instance.getUserList(activity);
+                Gson gson = new Gson();
+                String userListStr = gson.toJson(userList);
+                Log.e("CA", userListStr);
+                web.loadUrl("javascript:nativeWithCAGetUserList('" + userListStr + "')");
+            }
+        });
+    }
+
+    /**
+     * 选择某一用户后进行记录，以备后续使用
+     * @param phone
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCASelectUserInfo(String phone) {
+        selectPhoneNo = phone;
+    }
+
+    /**
+     * 申请证书
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCAApplyCert() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                instance.applyCert(activity, new ResultCallBack<ApplyCertResult>() {
+                    @Override
+                    public void onResult(ApplyCertResult applyCertResult) {
+                        Gson gson = new Gson();
+                        String certStr = gson.toJson(applyCertResult);
+                        Log.e("CA", certStr);
+                        web.loadUrl("javascript:nativeWithCAApplyCert('" + certStr + "')");
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 认证登录
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCALoginAuth(String phone, String srcData) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                instance.loginAuth(activity, phone, srcData.getBytes(), new ResultCallBack<LoginAuthResult>() {
+                    @Override
+                    public void onResult(LoginAuthResult loginAuthResult) {
+                        Gson gson = new Gson();
+                        String resultStr = gson.toJson(loginAuthResult);
+                        Log.e("CA", resultStr);
+                        web.loadUrl("javascript:nativeWithCALoginAuth('" + resultStr + "')");
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 删除证书
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCADeleteUserCert(String phone) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseResult result = instance.deleteUserCert(activity, phone);
+                Gson gson = new Gson();
+                String resultStr = gson.toJson(result);
+                Log.e("CA", resultStr);
+                web.loadUrl("javascript:nativeWithCADeleteUserCert('" + resultStr + "')");
+            }
+        });
+    }
+
+    /**
+     * 获取用户信息
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCAGetUserInfo(String phone) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                UserInfoResult userInfo = instance.getUserInfo(activity, phone);
+                Gson gson = new Gson();
+                String resultStr = gson.toJson(userInfo);
+                Log.e("CA", resultStr);
+                web.loadUrl("javascript:nativeWithCAGetUserInfo('" + resultStr + "')");
+            }
+        });
+    }
+
+    /**
+     * 获取证书扩展项
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCAGetCertExtension(String phone) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String oidValue = instance.getCertExtension(activity, phone, "2.16.840.1.113732.2");
+                Log.e("CA", oidValue);
+                web.loadUrl("javascript:nativeWithCA('" + oidValue + "')");
+            }
+        });
+    }
+
+    /**
+     * 获取证书序列号
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCAGetCertSn(String phone) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String certSn = instance.getCertSn(activity, phone);
+                Log.e("CA", certSn);
+                web.loadUrl("javascript:nativeWithCAGetCertSn('" + certSn + "')");
+            }
+        });
+    }
+
+    /**
+     * 签名
+     * src 表示要进行签名的原数据
+     * pin表示密码。进行签名时需要调用认证登录接口（loginAuth）弹出输入密码控件，验证通过后，pin可从loginAuthResult中获取。
+     */
+    @JavascriptInterface
+    public void jsCallNativeWithCASignDataSM2(String phone, String src, String pin) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                instance.signDataSM2(activity, phone, src.getBytes(), pin, new ResultCallBack<SignDataResult>() {
+                    @Override
+                    public void onResult(SignDataResult result) {
+                        Gson gson = new Gson();
+                        String resultStr = gson.toJson(result);
+                        Log.e("CA", resultStr);
+                        web.loadUrl("javascript:nativeWithCASignDataSM2('" + resultStr + "')");
+                    }
+                });
+            }
+        });
+    }
+
 }
